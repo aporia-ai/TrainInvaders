@@ -1,0 +1,18 @@
+name: Release
+on:
+  release:
+    types: [published]
+jobs:
+  release:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        architecture: x64
+    - run: make build-game
+    - run: pip3 install poetry
+    - run: poetry build
+    - run: poetry publish --username=__token__ --password=${{ secrets.PYPI_TOKEN }}
