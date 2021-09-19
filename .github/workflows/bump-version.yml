@@ -2,8 +2,7 @@ name: Aporia
 on:
   push:
     branches:
-      - master
-      - dev
+      - main
 jobs:
   bump-version:
     runs-on: ubuntu-20.04

@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "train_invaders"
-version = "v0.0.1"
+version = "v1.0.0"
 description = "Jupyter Notebook + Space Invaders!?"
-authors = ["Aporia <devoncall@aporia.com>"]
+authors = ["Aporia"]
 readme = "README.md"
 repository = "https://github.com/aporia-ai/TrainInvaders"
 classifiers = [
