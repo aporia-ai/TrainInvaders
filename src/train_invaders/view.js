@@ -19,6 +19,9 @@ const LeaderboardRow = Vue.component('LeaderboardRow', {
         score: Number,
         position: Number,
     },
+    mounted() {
+        if(this.showDisplayNameInput) this.$refs.input.focus()
+    },
     template: `
         <div class="leaderboard-row">
             <div :title="position">
@@ -27,7 +30,7 @@ const LeaderboardRow = Vue.component('LeaderboardRow', {
             </div>
             <div>
                 <div class="leaderboard-row-display-name-input-wrapper" v-if="showDisplayNameInput" >
-                    <input type="text" class="leaderboard-row-display-name-input" placeholder="." @input="$emit('displayNameChange', $event.target.value)">
+                    <input ref="input" type="text" class="leaderboard-row-display-name-input" placeholder="." @input="$emit('displayNameChange', $event.target.value)">
                     <div class="leaderboard-row-display-name-input-placeholder">Your nickname</div>
                 </div>
                 <div v-else :title="displayName" class="leaderboard-row-display-name">{{ displayName }}</div>
@@ -161,7 +164,7 @@ const Leaderboard = Vue.component('Leaderboard', {
             return false;
         },
         async getGoogleAuth() {
-            return new Promise(res => {
+            return new Promise((res, rej) => {
                 gapi.load('auth2', () => {
                     let GoogleAuth = gapi.auth2.getAuthInstance()
                     if (!GoogleAuth) {
@@ -173,7 +176,7 @@ const Leaderboard = Vue.component('Leaderboard', {
                     GoogleAuth.then(async () => {
                         this.GoogleAuth = GoogleAuth
                         res('')
-                    })
+                    }).catch(e => rej(e))
                 });
             })
         },
@@ -292,14 +295,19 @@ const Leaderboard = Vue.component('Leaderboard', {
         }
     },
     async mounted() {
-        this.readOnly = !(
-            window.location.hostname === 'localhost'
-            && ['8888', '8889', '8890', '8891', '8080', '8081'].some(port => port === window.location.port)
-        )
+        const isLocalhost = window.location.hostname === 'localhost'
+        const isPortAllowed = ['8888', '8889', '8890', '8891', '8080', '8081'].some(port => port === window.location.port)
+        const isCookiesEnabled = navigator.cookieEnabled
+        this.readOnly = !(isLocalhost && isPortAllowed) || !isCookiesEnabled
         this.user.score = this.selfScore
         this.database = firebase.firestore();
         if(!this.readOnly) {
-            await this.getGoogleAuth()
+            try {
+                await this.getGoogleAuth()
+            } catch(e) {
+                if(e && e.details === 'Cookies are not enabled in current environment.') this.readOnly = true
+                else throw e
+            }
             if (this.GoogleAuth) this.getGoogleUser()
             if (this.GoogleUser) await this.getFirebaseUser()
             if (this.firebaseUser) await this.getUser()
@@ -314,7 +322,7 @@ const Leaderboard = Vue.component('Leaderboard', {
         <div class="leaderboard">
             <div class="leaderboard-inner">
                 <div class="leaderboard-title">Leaderboard</div>
-                <div>
+                <form @submit.prevent="!user.uid ? signIn() : ''">
                     <div class="leaderboard-header">
                         <div></div>
                         <div>Nickname</div>
@@ -342,12 +350,12 @@ const Leaderboard = Vue.component('Leaderboard', {
                     <div class="leaderboard-current-score">Current score: {{ user.score }}</div>
                     <div class="leaderboard-encouragement" v-if="encouragementText">{{ encouragementText }}</div>
                     <div v-if="!readOnly" class="leaderboard-buttons-wrapper">
-                        <button v-if="!user.uid" class="leaderboard-button" @click="signIn">
+                        <button v-if="!user.uid" class="leaderboard-button" type="submit">
                             Save & Login
                         </button>
-                        <button v-else class="leaderboard-button" @click="logout">Logout</button>
+                        <button v-else class="leaderboard-button" @click="logout" type="button">Logout</button>
                     </div>
-                </div>
+                </form>
             </div>
             <CloseButton class="leaderboard-close-button" @click="$emit('close')" />
             <Spinner v-if="isLoading"></Spinner>
@@ -386,26 +394,26 @@ new Vue({
             },
             keyTranslationTable: {
                 // Directions
-                37: 1, // key-left
-                38: 2, // key-up
-                39: 4, // key-right
-                40: 8, // key-down
+                ArrowLeft: 1, // key-left
+                ArrowUp: 2, // key-up
+                ArrowRight: 4, // key-right
+                ArrowDown: 8, // key-down
 
                 // A
-                32: 16, // space maps to "A"
-                13: 16, // enter maps to "A"
-                88: 16, // X maps to "A"
+                Space: 16, // space maps to "A"
+                Enter: 16, // enter maps to "A"
+                KeyX: 16, // X maps to "A"
 
                 // B
-                65: 32, // A maps to "B"
-                83: 32, // S maps to "B"
+                KeyA: 32, // A maps to "B"
+                KeyS: 32, // S maps to "B"
 
                 // Start
-                27: 64, // ESC maps to "START"
-                81: 64, // Q maps to "START"
+                Escape: 64, // ESC maps to "START"
+                KeyQ: 64, // Q maps to "START"
 
                 // Select
-                87: 128, // W maps to "SELECT"
+                KeyW: 128, // W maps to "SELECT"
             },
             sceneTranslationTable: {
                 1: "MAINMENU",
@@ -438,20 +446,21 @@ new Vue({
             let remoteKeyState = new Uint8ClampedArray(memory.buffer, inputRef, 1);
 
             document.addEventListener("keydown", (e) => {
-                if (e.path.some(element => element.tagName === 'INPUT')) return
-
-                if (e.keyCode in this.keyTranslationTable) {
+                const path = e.path || (e.composedPath && e.composedPath());
+                if (path.some(element => element.tagName === 'INPUT')) return
+                if (e.code in this.keyTranslationTable) {
                     e.preventDefault();
-                    localKeyState |= this.keyTranslationTable[e.keyCode];
+                    localKeyState |= this.keyTranslationTable[e.code];
                 }
             });
 
             document.addEventListener("keyup", (e) => {
-                if (e.path.some(element => element.tagName === 'INPUT')) return
+                const path = e.path || (e.composedPath && e.composedPath());
+                if (path.some(element => element.tagName === 'INPUT')) return
 
-                if (e.keyCode in this.keyTranslationTable) {
+                if (e.code in this.keyTranslationTable) {
                     e.preventDefault();
-                    localKeyState &= ~this.keyTranslationTable[e.keyCode];
+                    localKeyState &= ~this.keyTranslationTable[e.code];
                 }
             });
 

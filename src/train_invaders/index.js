@@ -52,5 +52,11 @@ if(!window.__isThereGameCloseListener) {
     window.__isThereGameCloseListener = true
 }
 
-// Inject game into iframe
-getGameIframe().contentDocument.write(atob("$$GAME_HTML_BASE64$$"))
+// If online, run the game
+if(navigator.onLine) {
+    getGameIframe().contentDocument.write(atob("$$GAME_HTML_BASE64$$"))
+    getGameIframe().focus()
+} else {
+    getGameIframe().height = 25
+    getGameIframe().contentDocument.write(`[TrainInvaders] No internet connection :(`)
+}
