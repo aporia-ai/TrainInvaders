@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "train_invaders"
-version = "v1.0.1"
+version = "v1.0.2"
 description = "Jupyter Notebook + Space Invaders!?"
 authors = ["Aporia"]
 readme = "README.md"
