@@ -40,7 +40,7 @@ def _call_tracer(frame: FrameType, event: str, arg: Any):
         display(HTML(iframe_html))
 
         # Create main logic file and inject in it the base64 HTLM of the view
-        with open(train_invaders_dir / "view.txt", mode="rb") as view:
+        with open(train_invaders_dir / "view.txt", mode="r") as view:
             script_str = _get_template(
                 path=train_invaders_dir / "index.js",
                 mapping={

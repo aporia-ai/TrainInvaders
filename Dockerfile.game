@@ -17,7 +17,7 @@ RUN cd /project && \
 	chmod +x /build/emsdk/emsdk_env.sh && \
 	make compile-game
 RUN cd /project/public && \
-	base64 game.wasm > game.txt
+	base64 game.wasm -w 0 > game.txt
 
 # Export game
 FROM scratch AS export

@@ -8,7 +8,7 @@ RUN npm install
 COPY ./src/view /app
 RUN npm run build
 RUN cd /app/dist && \
-	base64 index.html > view.txt
+	base64 index.html -w 0 > view.txt
 
 # Export view.txt
 FROM scratch AS export

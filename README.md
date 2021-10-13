@@ -80,8 +80,8 @@ Have an awesome idea for a new feature? PRs are more than welcome!
 2. Run `make build-game` to get a local and compiled copy of the game (if not exists)
 2. Enter `src/view` directory and run `npm run serve` to deploy local environment
 2. Implement your ideas
-3. Made changes in the game (C files)? Re-run `make build-game` and check them out
-5. Enter root directory, run `pip install . --upgrade` and test the changes in your notebook
+3. Made changes in the game (C files)? Re-run `make build-game` from root dir and check them out
+5. Enter root directory, run `make build`, `pip install . --upgrade` and test the changes in your notebook
 6. PR us!
 
 ## Thanks to 🙏
