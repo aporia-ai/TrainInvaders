@@ -1,4 +1,5 @@
-FROM ubuntu as build
+# Build game
+FROM ubuntu as game_builder
 RUN apt-get update && \
 	apt-get install -y git python3 && \
 	mkdir /build && \
@@ -15,6 +16,9 @@ ENV PATH="${PATH}:/build/emsdk/upstream/bin"
 RUN cd /project && \
 	chmod +x /build/emsdk/emsdk_env.sh && \
 	make compile-game
+RUN cd /project/public && \
+	base64 game.wasm > game.txt
 
+# Expot game
 FROM scratch AS export
-COPY --from=build /project/public/game.wasm .
+COPY --from=game_builder /project/public/game.txt .

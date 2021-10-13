@@ -2,7 +2,7 @@ SHELL := /bin/bash
 
 DEFAULT_VERSION=1.0.0
 
-# Build wasm game
+# Compile wasm game
 compile-game:
 	cd src && \
 	clang \
@@ -24,7 +24,14 @@ compile-game:
 
 # Build game
 build-game:
-	DOCKER_BUILDKIT=1 docker build --file Dockerfile --output ./src/train_invaders .
+	DOCKER_BUILDKIT=1 docker build --file Dockerfile.game --output ./src/view/src/assets .
+
+# Build view
+build-view:
+	DOCKER_BUILDKIT=1 docker build --file Dockerfile.view --output ./src/train_invaders .
+
+# Build TrainInvaders
+build: build-game build-view
 
 # Install dependencies
 install-deps:

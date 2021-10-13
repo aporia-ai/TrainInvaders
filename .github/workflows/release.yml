@@ -12,7 +12,7 @@ jobs:
       with:
         python-version: '3.8'
         architecture: x64
-    - run: make build-game
+    - run: make build
     - run: pip3 install poetry
     - run: poetry build
     - run: poetry publish --username=__token__ --password=${{ secrets.PYPI_TOKEN }}
