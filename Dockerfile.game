@@ -19,6 +19,6 @@ RUN cd /project && \
 RUN cd /project/public && \
 	base64 game.wasm > game.txt
 
-# Expot game
+# Export game
 FROM scratch AS export
 COPY --from=game_builder /project/public/game.txt .
