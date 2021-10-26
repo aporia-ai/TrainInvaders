@@ -1,0 +1,43 @@
+@font-face {
+  font-family: "Press Start 2P";
+  src: local("Press Start 2P"),
+    url(./assets/PressStart2P.ttf) format("truetype");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Press Start 2P", cursive;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+input {
+  all: unset;
+  border-bottom: solid 1px currentColor;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
