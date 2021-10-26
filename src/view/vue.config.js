@@ -12,7 +12,9 @@ module.exports = {
   chainWebpack: (config) => {
     // Show emojies
     config.optimization.minimizer("terser").tap(args => {
-      const { terserOptions } = args[0]
+      const options = args[0]
+      const terserOptions = options.terserOptions
+      terserOptions.output = terserOptions.output || {}
       terserOptions.output.ascii_only = true
       return args
     })
