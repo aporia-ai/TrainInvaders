@@ -1,0 +1,15 @@
+# Build view
+FROM node:12 as view_builder
+RUN mkdir -p /app
+WORKDIR /app
+COPY ./src/view/package.json /app
+COPY ./src/view/package-lock.json /app
+RUN npm install
+COPY ./src/view /app
+RUN npm run build
+RUN cd /app/dist && \
+	base64 index.html -w 0 > view.txt
+
+# Export view.txt
+FROM scratch AS export
+COPY --from=view_builder /app/dist/view.txt .

@@ -77,10 +77,11 @@ NO. The game will start and be played **in parallel to the training** and will e
 Have an awesome idea for a new feature? PRs are more than welcome!
 
 1. Clone the project
-2. Implement your idea
-3. Made changes in the game? re-compile it with `make build-game`
-4. Run `pip install . --upgrade`
-5. Test the changes in your notebook
+2. Run `make build-game` to get a local and compiled copy of the game (if not exists)
+2. Enter `src/view` directory and run `npm run serve` to run the local environment
+2. Implement your ideas
+3. Made changes in the game (C files)? Re-run `make build-game` from root dir and check them out
+5. Enter root directory, run `make build`, `pip install . --upgrade` and test the changes in your notebook
 6. PR us!
 
 ## Thanks to 🙏
@@ -90,7 +91,9 @@ Have an awesome idea for a new feature? PRs are more than welcome!
 
 [Vue](https://github.com/vuejs/vue) for the awesome FE framework.
 
-## You may also like... ❤️
+## You may also ❤️
 [Aporia](https://www.aporia.com/?utm_source=train-invaders&utm_medium=docs&utm_campaign=train-invaders) - Customized monitoring for your ML models.
+
+[MLNotify](https://mlnotify.aporia.com/) - Get notified when training is complete.
 
 [MLOps Toys](https://mlops.toys/?utm_source=train-invaders&utm_medium=docs&utm_campaign=train-invaders) - A curated list of useful MLOps tools.
