@@ -70,7 +70,7 @@ When importing the `stop` module, the `settrace` function will be canceled and t
 NO. The game will start and be played **in parallel to the training** and will even *let you know when the training is finished*.
 
 ## Drawbacks 🥺
-* Training stop indication is only in Jupyter Notebook. Want to get notified by email or text? Try [MLNotify](https://mlnotify.aporia.com/)
+* Training stop indication is only in Jupyter Notebook. Want to get notified by email or text? Try [MLNotify](https://mlnotify.aporia.com/?utm_source=train-invaders&utm_medium=docs&utm_campaign=train-invaders)
 * Authentication, and therefore, saving your score can only be done from `localhost` and port `8888 - 8891 / 8080 / 8081`
 
 ## Contribute 🤝
@@ -94,6 +94,6 @@ Have an awesome idea for a new feature? PRs are more than welcome!
 ## You may also ❤️
 [Aporia](https://www.aporia.com/?utm_source=train-invaders&utm_medium=docs&utm_campaign=train-invaders) - Customized monitoring for your ML models.
 
-[MLNotify](https://mlnotify.aporia.com/) - Get notified when training is complete.
+[MLNotify](https://mlnotify.aporia.com/?utm_source=train-invaders&utm_medium=docs&utm_campaign=train-invaders) - Get notified when training is complete.
 
 [MLOps Toys](https://mlops.toys/?utm_source=train-invaders&utm_medium=docs&utm_campaign=train-invaders) - A curated list of useful MLOps tools.
