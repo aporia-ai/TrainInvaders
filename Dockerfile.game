@@ -2,6 +2,7 @@
 FROM ubuntu as game_builder
 RUN apt-get update && \
 	apt-get install -y git python3 && \
+	apt-get install libatomic1 && \
 	mkdir /build && \
 	cd /build && \
 	git clone https://github.com/emscripten-core/emsdk.git
