@@ -13,6 +13,7 @@ if (typeof window !== 'undefined' && 'Jupyter' in window) {
 
     if (!cell.__gameInitiated) {
         cell.__isRunning = true
+
         // On cell execution stop
         Jupyter.notebook.events.on('finished_execute.CodeCell', function (evt, data) {
             if (data.cell.cell_id === cellId) {
@@ -21,12 +22,15 @@ if (typeof window !== 'undefined' && 'Jupyter' in window) {
                 cell.__isRunning = false
             }
         });
+
         // On cell execution start
         Jupyter.notebook.events.on('execute.CodeCell', function (evt, data) {
             if (data.cell.cell_id === cellId) {
                 cell.__isRunning = true
             }
         });
+
+        // Notify view when training is finished
         window.addEventListener("message", event => {
             if (event.data.event === `gameTrainingState`) {
                 if (!cell.__isRunning) {
@@ -35,10 +39,12 @@ if (typeof window !== 'undefined' && 'Jupyter' in window) {
                 }
             }
         });
+
         cell.__gameInitiated = true
     }
 }
 
+// Handle game closing
 if(!window.__isThereGameCloseListener) {
     function gameCloseHandler(event) {
         if (event.data.event === `gameClose`) {
@@ -52,5 +58,6 @@ if(!window.__isThereGameCloseListener) {
     window.__isThereGameCloseListener = true
 }
 
+// Inject base64 view to the iframe
 getGameIframe().contentDocument.write(atob("$$GAME_HTML_BASE64$$"))
 getGameIframe().focus()

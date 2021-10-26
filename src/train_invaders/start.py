@@ -1,4 +1,3 @@
-import base64
 from pathlib import Path
 import sys
 from types import FrameType
@@ -18,6 +17,7 @@ iframe_html = """
     ></iframe>
 """
 
+
 def _get_template(path: Path, mapping: Optional[Dict[str, Any]] = None) -> str:
     """Gets the file and injects the values of the keys from the mapping."""
     with open(path, mode="r") as template_file:
@@ -29,7 +29,7 @@ def _get_template(path: Path, mapping: Optional[Dict[str, Any]] = None) -> str:
 
 
 def _call_tracer(frame: FrameType, event: str, arg: Any):
-    """Hook fit / train / train_on_batch methods and run the game of their call."""
+    """Hook fit / train / train_on_batch methods and run the game on their call."""
     if event == "call" and (
         frame.f_code.co_name == "fit"
         or frame.f_code.co_name == "train"
@@ -39,13 +39,11 @@ def _call_tracer(frame: FrameType, event: str, arg: Any):
         # Inject iframe
         display(HTML(iframe_html))
 
-        # Create main logic file and inject in it the base64 HTLM of the view
+        # Inject view inside the logic script
         with open(train_invaders_dir / "view.txt", mode="r") as view:
             script_str = _get_template(
                 path=train_invaders_dir / "index.js",
-                mapping={
-                    "GAME_HTML_BASE64": view.read()
-                },
+                mapping={"GAME_HTML_BASE64": view.read()},
             )
 
         # Inject the logic
