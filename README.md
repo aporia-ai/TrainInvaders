@@ -31,7 +31,7 @@
   <a href="#drawbacks-">Drawbacks</a> •
   <a href="#contribute-">Contribute</a> •
   <a href="#thanks-to-">Thanks to</a> •
-  <a href="#you-may-also-like-%EF%B8%8F">You may also like...</a>
+  <a href="#you-may-also-%EF%B8%8F">You may also like...</a>
 </p>
 
 ![Demo](https://raw.githubusercontent.com/aporia-ai/TrainInvaders/main/src/assets/demo.gif)
