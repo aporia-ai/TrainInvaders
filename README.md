@@ -11,10 +11,6 @@
 <h4 align="center">Jupyter Notebook + Space Invaders!?</h4>
 
 <p align="center">
-  <a href="https://pypi.python.org/pypi/train_invaders/">
-    <img src="https://img.shields.io/pypi/dm/ansicolortags.svg"
-         alt="PyPI download monthly">
-  </a>
   <img src="https://img.shields.io/badge/python-+3.6-blue.svg"
          alt="Python version">
   <img src="https://img.shields.io/badge/contributions-welcome-orange.svg"
