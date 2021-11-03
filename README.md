@@ -88,8 +88,8 @@ Have an awesome idea for a new feature? PRs are more than welcome!
 [Vue](https://github.com/vuejs/vue) for the awesome FE framework.
 
 ## You may also ❤️
-[Aporia](https://www.aporia.com?utm_source=github&utm_medium=github&utm_campaign=train_invaders) - Customized monitoring for your ML models.
+[Aporia](https://www.aporia.com?utm_source=github&utm_medium=github&utm_campaign=train-invaders) - Customized monitoring for your ML models.
 
-[MLNotify](https://www.mlnotify.aporia.com?utm_source=github&utm_medium=github&utm_campaign=train_invaders) - Get notified when training is complete.
+[MLNotify](https://www.mlnotify.aporia.com?utm_source=github&utm_medium=github&utm_campaign=train-invaders) - Get notified when training is complete.
 
-[MLOps Toys](https://www.mlops.toys?utm_source=github&utm_medium=github&utm_campaign=train_invaders) - A curated list of useful MLOps tools.
+[MLOps Toys](https://www.mlops.toys?utm_source=github&utm_medium=github&utm_campaign=train-invaders) - A curated list of useful MLOps tools.

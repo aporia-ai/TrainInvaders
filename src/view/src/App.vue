@@ -15,7 +15,7 @@
           Brought to you with
           <img src="./assets/heart.png" alt="Heart icon" class="heart-icon" /> By
           <a
-            href="https://www.aporia.com?utm_source=train_invaders&utm_medium=inhouse_application&utm_campaign=train_invaders"
+            href="https://www.aporia.com?utm_source=train-invaders&utm_medium=inhouse-application&utm_campaign=train-invaders"
             target="_blank"
             class="aporia-logo-wrapper"
           >
